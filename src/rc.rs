@@ -1,5 +1,5 @@
-use core::ops::Deref;
 use alloc::rc::Rc;
+use core::ops::Deref;
 
 /// Reference-counted error for sharing within a single thread.
 pub struct RcError<E> {

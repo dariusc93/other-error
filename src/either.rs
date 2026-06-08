@@ -1,8 +1,7 @@
-
-use either::Either;
 use core::error::Error;
 use core::fmt::{Debug, Display};
 use core::ops::Deref;
+use either::Either;
 
 /// Error that is one of two possible error types.
 pub struct EitherError<L, R> {
@@ -19,7 +18,7 @@ impl<L, R> Deref for EitherError<L, R> {
     type Target = Either<L, R>;
     fn deref(&self) -> &Self::Target {
         &self.inner
-    }   
+    }
 }
 
 impl<L, R> From<Either<L, R>> for EitherError<L, R> {
@@ -28,19 +27,28 @@ impl<L, R> From<Either<L, R>> for EitherError<L, R> {
     }
 }
 
-impl<L, R> PartialEq for EitherError<L, R> where L: PartialEq, R: PartialEq {
+impl<L, R> PartialEq for EitherError<L, R>
+where
+    L: PartialEq,
+    R: PartialEq,
+{
     fn eq(&self, other: &Self) -> bool {
         self.inner == other.inner
     }
 }
 
-impl<L, R> Eq for EitherError<L, R> where L: Eq, R: Eq {}
+impl<L, R> Eq for EitherError<L, R>
+where
+    L: Eq,
+    R: Eq,
+{
+}
 
 impl<L, R> EitherError<L, R> {
     pub fn new(inner: Either<L, R>) -> Self {
         Self { inner }
     }
-    
+
     pub fn into_inner(self) -> Either<L, R> {
         self.inner
     }
@@ -64,7 +72,11 @@ impl<L: Display, R: Display> Display for EitherError<L, R> {
     }
 }
 
-impl<L, R> Error for EitherError<L, R> where L: Error, R: Error {
+impl<L, R> Error for EitherError<L, R>
+where
+    L: Error,
+    R: Error,
+{
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match &self.inner {
             Either::Left(err) => err.source(),

@@ -1,5 +1,5 @@
-use core::ops::Deref;
 use alloc::sync::Arc;
+use core::ops::Deref;
 
 /// Error that is sharable between threads
 pub struct ArcError<E> {
