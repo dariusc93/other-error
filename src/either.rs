@@ -96,6 +96,9 @@ mod tests {
     #[derive(Debug)]
     struct RightErr;
 
+    impl Error for LeftErr {}
+    impl Error for RightErr {}
+
     impl Display for LeftErr {
         fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
             f.write_str("left")

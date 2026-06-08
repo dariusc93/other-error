@@ -81,6 +81,8 @@ mod tests {
         }
     }
 
+    impl core::error::Error for MyError {}
+
     #[test]
     fn new_and_deref() {
         let err = ArcError::new(MyError);
